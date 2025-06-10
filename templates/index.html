@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promoción 8 - MTC V2</title>
+    <link rel="stylesheet" href="src/estilos.css">
+    <link rel="shortcut icon" href="./src/assets/img/Logo-Promo.jpeg" type="image/png">
+    <script src="src/script.js"></script>
+</head>
+<body>
+
+    <button class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <div class="sidebar">
+        <div class="close-btn">&times;</div>
+        <nav class="sidebar-links">
+            <a href="indiano.html" class="sidebar-link">Información</a>
+            <a href="#proyectos" class="sidebar-link">InformaciónV2</a>
+            <a href="#noticias" class="sidebar-link">Noticias</a>
+            <a href="#h" class="sidebar-link">Creador</a>
+        </nav>
+    </div>
+    <div class="sidebar-overlay"></div>
+
+
+
+    <nav>
+        <div class="nav-content">
+            <div class="logo"><img src="src/assets/img/Logo-Promo.jpeg" alt="Logo MTC"></div>
+            <div class="nav-links">
+                <a href="indiano.html" class="nav-link">Información</a>
+                <a href="#proyectos" class="nav-link">InformaciónV2</a>
+                <a href="#noticias" class="nav-link">Noticias</a>
+                <a href="#h" class="nav-link">Creador</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Promoción 8 MTC</h1>
+                <p>Somos la octava promoción de la Unidad Educativa Privada “Madre Teresa de Calcuta” Monagas. Descubre nuestro proyecto educativo y mantente actualizado con nuestras actividades.</p>
+                <a href="indiano.html" class="cta-button">Explorar ahora</a>
+            </div>
+        </section>
+
+        <section class="featured">
+            <h2 class="section-title">Noticias Destacadas</h2>
+            <div class="promo-grid">
+                <article class="promo-card">
+                    
+                    <img src="src/assets/img/Blender1.png" alt="Objetivo 1">
+                    <div class="promo-info">
+                        <h3>Innovación Educativa</h3>
+                        <p>Desarrollo de proyectos tecnológicos integrados al currículo académico.</p>
+                    </div>
+                </article>
+
+                <article class="promo-card">
+                    <img src="src/assets/img/Blender2.png" alt="Objetivo 2">
+                    <div class="promo-info">
+                        <h3>Comunidad Activa</h3>
+                        <p>Programas de integración social y actividades extracurriculares.</p>
+                    </div>
+                </article>
+
+                <article class="promo-card">
+                    <img src="src/assets/img/Blender3.png" alt="Objetivo 3">
+                    <div class="promo-info">
+                        <h3>Excelencia Académica</h3>
+                        <p>Formación integral con énfasis en valores y desarrollo profesional.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="redes-sociales">
+                <a href="https://www.instagram.com/promoviiimtc" class="social-link" target="_blank" rel="noopener">
+                    <img src="src/assets/img/Instagram.png" alt="Instagram">
+                </a>
+            </div>
+            <img src="src/assets/img/Logo-Promo.jpeg" alt="" width="90">
+            <p class="copyright">&copy; 2025 Promoción VIII MTC. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Control del Sidebar
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        const closeBtn = document.querySelector('.close-btn');
+        const overlay = document.querySelector('.sidebar-overlay');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Cerrar sidebar al hacer click en un enlace
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+    </script>
+
+</body>
+</html>

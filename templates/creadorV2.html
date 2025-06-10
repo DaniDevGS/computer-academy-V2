@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linktree</title>
+    <style>
+        :root {
+            --color-esencial: url("src/assets/img/Gohan-bestia.jpg");
+            --dark-mode-width: 50px;
+            --dark-mode-height: 30px;
+            --fondo-negro: black;
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+            --color-acento: #00d7fd;
+            --light: white;
+        }
+
+        /* Estilos base y tipografía */
+        body {
+            background-color: var(--fondo-negro);
+            transition: background-color 0.5s ease;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Dark Mode Styles */
+        body.active {
+            background-color: white;
+        }
+
+        body.active .dark-mode {
+            background-color: #eeeeee;
+        }
+
+        body.active .circle {
+            transform: translateX(140%);
+            background-color: var(--fondo-negro);
+        }
+
+        body.active h1,
+        body.active h2,
+        body.active h3 {
+            color: var(--fondo-negro);
+        }
+
+        body.active article {
+            background-color: #f5f5f5;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: var(--dark-mode-width);
+            height: var(--dark-mode-height);
+            background-color: #aaaaaa;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dark-mode .circle {
+            width: 40%;
+            height: 80%;
+            background-color: white;
+            border-radius: 50%;
+            transform: translateX(10%);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            z-index: 999;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 60px;
+        }
+
+        .sidebar-link {
+            color: var(--light);
+            text-decoration: none;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .sidebar-link:hover {
+            background-color: var(--color-acento);
+            color: var(--fondo-negro);
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 999;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        header h3{
+            padding: 30px 0;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .creator-content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .perfil {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            animation: luces 4s infinite;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Grid Layout for Articles */
+        .articles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        article {
+            background-color: rgb(1, 3, 17);
+            border-radius: 10px;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        article:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); 
+            transform: translateY(-5px);
+        }
+
+        article header{
+            padding: 15px;
+            width: 100%;
+    
+        }
+
+        article p {
+            font-size: 1rem;
+            line-height: 1.8; /* Mejor espaciado entre líneas */
+            font-family: 'Roboto Flex', sans-serif;
+            padding: 20px;
+        }
+
+        article footer {
+            padding: 12px;
+            text-align: center;
+            width: 100%;
+            background-color: blue;
+        }
+
+        article h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 500;
+            background-color: blue;
+            border-radius: 20px;
+        }
+
+        /* Responsive Images */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .logos-programacion {
+            height: 200px;
+            object-fit: contain;
+        }
+
+
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.8rem; }
+            
+            .sidebar {
+                width: 250px;
+                left: -250px;
+            }
+            
+            .bar-icons {
+                gap: 15px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            
+            .perfil {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        .GitHub{
+            background-color: white;
+        }
+
+        /* Resto de animaciones y estilos específicos */
+        @keyframes luces {
+            0%, 100% { box-shadow: 0 0 40px #0059fd; }
+            25% { box-shadow: 0 0 40px rgb(1, 255, 170); }
+            50% { box-shadow: 0 0 40px rgb(1, 255, 255); }
+            75% { box-shadow: 0 0 40px rgb(1, 140, 255); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="menu-toggle">☰</div>
+    <div class="sidebar">
+        <nav class="sidebar-links">
+            <a href="indiano.html" class="sidebar-link">Información</a>
+            <a href="#proyectos" class="sidebar-link">Proyectos</a>
+            <a href="#noticias" class="sidebar-link">Noticias</a>
+            <a href="#contacto" class="sidebar-link">Contacto</a>
+        </nav>
+    </div>
+    <div class="sidebar-overlay"></div>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode">
+        <div class="circle">
+            <ion-icon class="sun" name="sunny"></ion-icon>
+            <ion-icon class="moon" name="moon"></ion-icon>
+        </div>
+    </div>
+
+    <!-- Header Content -->
+    <header>
+        <img src="src/assets/img/V-Onecito - copia.png" class="perfil" width="150">
+        <h1>DaniDev</h1>
+        <h2>Aspirante a desarrollador de videojuegos</h2>
+        <p>Bienvenido a este sitio web</p>
+        
+        <div class="bar-icons">
+            <a href="https://github.com/DaniDevGS" target="_blank" rel="noopener noreferrer"><img src="src/assets/img/GitHub-logo.png" alt="" width="50" class="GitHub"></a>
+
+            <a href="https://github.com/DaniDevGS" target="_blank" rel="noopener noreferrer"><img src="src/assets/img/Itchio-logo.png" alt="" width="50" class="Itchio"></a>
+
+            <a href="https://github.com/DaniDevGS" target="_blank" rel="noopener noreferrer"><img src="src/assets/img/Kickstarter-logo.png" alt="" width="50" class="Kickstarter"></a>
+
+            <a href="https://githu" target="_blank" rel="noopener noreferrer"><img src="src/assets/img/Unity-logo.png" alt="" width="50" class="Unity"></a>
+
+
+            </div>
+    </header>
+
+    <main>
+        
+    </main>
+
+    <script>
+        // Sidebar Toggle
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.add('active');
+            document.querySelector('.sidebar-overlay').style.display = 'block';
+        });
+
+        document.querySelector('.sidebar-overlay').addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.remove('active');
+            document.querySelector('.sidebar-overlay').style.display = 'none';
+        });
+
+        // Dark Mode Toggle
+        document.querySelector('.dark-mode').addEventListener('click', () => {
+            document.body.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
