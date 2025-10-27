@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <script type="module" src="./src/JS/main.js"></script>
+    <link rel="stylesheet" href="src/CSS/sign.css">
+</head>
+<body>
+    <main>
+        <section class="login-container">
+            <header>
+                <h1>Iniciar Seccion</h1>
+            </header>
+
+            <form class="loginForm">
+                <article class="form-group">
+                    <label for="id_username">Username:</label>
+                    <input type="text" name="username" class="form-control" placeholder="Write your username" required id="id_username">
+                </article>
+
+
+                <article class="form-group">
+                    <label for="id_password1">Password:</label>
+                    <input type="password" name="password1" class="form-control" placeholder="Write your password" required id="id_password1">
+                </article>
+
+                <article class="form-group">
+                    <label for="id_password2">Confirm your password:</label>
+                    <input type="password" name="password2" class="form-control" placeholder="Confirm your password" id="id_password2">
+                </article>
+            </form>
+
+            <button onclick="handleSignup()">
+                Signup
+            </button>
+        </section>
+    </main>
+
+    <script>
+    
+    const API_URL = 'http://localhost:8000/api/signup/';
+
+    async function handleSignup() {
+        const username = document.getElementById('id_username').value;
+        const password = document.getElementById('id_password1').value;
+        const password2 = document.getElementById('id_password2').value;
+        const messageElement = document.getElementById('message');
+
+        // 1. Validar las contraseñas en el frontend (buena práctica)
+        if (password !== password2) {
+            messageElement.textContent = 'Error: Las contraseñas no coinciden.';
+            return;
+        }
+        
+        try {
+            // 2. Enviar la solicitud POST a la API
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // CORS_ALLOW_CREDENTIALS: True en Django maneja el origen,
+                    // pero no necesitamos headers especiales aquí aparte del Content-Type
+                },
+                // ¡IMPORTANTE! El cuerpo se envía como una cadena JSON
+                body: JSON.stringify({ 
+                    username: username,
+                    password: password,
+                    password2: password2
+                })
+            });
+
+            // 3. Procesar la respuesta
+            const data = await response.json();
+
+            if (response.ok) {
+                // Registro exitoso (Status 201 Created)
+                messageElement.textContent = `Registro exitoso para ${data.username}!`;
+                
+                // **PASO CRUCIAL:** Almacenar el token para futuras peticiones
+                localStorage.setItem('authToken', data.token);
+                
+                window.location.href = 'user_detalles.html';
+                
+            } else {
+                // Error en el registro (Status 400 Bad Request, etc.)
+                // El mensaje de error viene del JSON que retorna tu Django API
+                const errorMsg = data.error || 'Error desconocido al registrar.';
+                messageElement.textContent = `Error al registrar: ${errorMsg}`;
+            }
+        } catch (error) {
+            messageElement.textContent = 'Error de conexión con el servidor.';
+            console.error('Fetch error:', error);
+        }
+    }
+    </script>
+</body>
+</html>

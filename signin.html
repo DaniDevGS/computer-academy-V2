@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="src/CSS/sign.css">
+</head>
+<body>
+    <main>
+        <section class="login-container">
+            <header>
+                <h1>Iniciar Seccion</h1>
+            </header>
+
+            <form class="loginForm"></form>
+
+                <article class="form-group">
+                    <label for="id_username">Username:</label>
+                    <input type="text" name="username" class="form-control" placeholder="Write your username" required id="id_username">
+                </article>
+
+
+                <article class="form-group">
+                    <label for="id_password">Confirm your password:</label>
+                    <input type="password" name="password" class="form-control" placeholder="Write your password" required id="id_password">
+                </article>
+
+                <article class="form-group">
+                    <a href="./signup.html">¿No tienes cuenta? Crea una</a>
+                </article>
+            </form>
+
+
+            <p id="error-message" style="color: red;"></p><button onclick="handleSignin()">
+                Signin
+            </button>
+        </section>
+    </main>
+
+    <script>
+    const API_URL = 'http://localhost:8000/api/signin/';
+
+    async function handleSignin() {
+        const username = document.getElementById('id_username').value;
+        const password = document.getElementById('id_password').value;
+        const errorMessageElement = document.getElementById('error-message');
+        errorMessageElement.textContent = ''; // Clear previous messages
+
+        if (!username || !password) {
+            errorMessageElement.textContent = 'Por favor, ingrese usuario y contraseña.';
+            return;
+        }
+        
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // <--- This is essential for DRF API
+                },
+                body: JSON.stringify({ 
+                    username: username,
+                    password: password 
+                })
+            });
+
+            const data = await response.json();
+
+            const loginButtonElement = document.querySelector('.button_login');
+            const userButtonElement = document.querySelector('.button_login_user');
+
+            if (response.ok) {
+                // Login successful (Status 200 OK)
+                
+                // **PASO CRUCIAL:** Almacenar el token
+                localStorage.setItem('authToken', data.token);
+                
+                // Opcional: Almacenar el nombre de usuario
+                localStorage.setItem('username', data.username);
+                
+                // 1. Ocultar el botón de "Iniciar Sesión" y mostrar el botón de "Usuario" 💡
+                if (loginButtonElement && userButtonElement) {
+                    // Oculta el botón de login
+                    loginButtonElement.style.display = 'none';
+
+                    // Muestra el botón de usuario
+                    userButtonElement.style.display = 'inline-flex';
+                }
+
+
+                // 2. Mostrar mensaje de éxito (Opcional)
+                errorMessageElement.textContent = `Bienvenido, ${data.username}! Iniciando sesión...`;
+
+                window.location.href = 'index.html';
+
+
+
+                
+            } else {
+                // Error in login (Status 401 Unauthorized, etc.)
+                const errorMsg = data.error || 'Credenciales inválidas.';
+                errorMessageElement.textContent = `Error: ${errorMsg}`;
+            }
+        } catch (error) {
+            errorMessageElement.textContent = 'Error de conexión. Asegúrese de que el backend está corriendo.';
+            console.error('Fetch error:', error);
+        }
+    }
+    </script>
+</body>
+</html>

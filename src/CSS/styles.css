@@ -72,13 +72,23 @@ nav {
 }
 
 
-/* =====Boton de Inicio de seccion===== */
+/* =======================Boton de Inicio de seccion================ */
 .button_login {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
     padding: 1rem;
     gap: 1rem;
+}
+
+.button_login a {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
+    text-decoration: none;
+    color: white;
 }
 
 .circle_button {
@@ -111,16 +121,22 @@ nav {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.button_login a {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-weight: bold;
-    text-align: left;
-    white-space: nowrap;
-    text-decoration: none;
-    color: white;
+
+
+/* =======================Boton de Inicio de seccion User================ */
+
+.button_login_user {
+    /* display: inline-flex; */
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+    background-color: green;
 }
-/* ==================================== */
+
+
+/* ========================================================== */
 
 .logo img {
     height: 60px;

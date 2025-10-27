@@ -1,0 +1,219 @@
+/* Reset mejorado y variables CSS */
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --dark: #1f2937;
+    --darker: #111827;
+    --light: #f3f4f6;
+    --lighter: #f9fafb;
+    --color-primario: #1e293b;
+    --color-secundario: #001239;
+    --color-secundario-hover: #1d4ed8;
+    --color-acento: #f59e0b;
+    --color-acento-hover: #d97706;
+    --sombra-base: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --sombra-elevada: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --fondo: #003376;
+    --fondo-hero: linear-gradient(135deg, #003376 0%, #1e293b 100%);
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s ease;
+}
+
+
+/* Reset mejorado */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Bebas Neue', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, rgba(0, 51, 118, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%) center center / cover fixed;
+    background-position: center center;
+    color: var(--light);
+    letter-spacing: 1px;
+}
+
+/* Mejoras de accesibilidad para enfoque */
+:focus-visible {
+    outline: 2px solid var(--color-acento);
+    outline-offset: 2px;
+}
+
+.login-container {
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(30, 41, 59, 0.9));
+    color: var(--light);
+    padding: 2.5rem;
+    border-radius: 12px;
+    width: 440px;
+    border: 2px solid var(--color-acento);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--light);
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 1px #000;
+}
+
+input {
+    width: 100%;
+    padding: 0.8rem;
+    background: #333;
+    border: 2px solid var(--color-secundario-hover);
+    border-radius: 25px;
+    box-sizing: border-box;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #0145ff;
+    box-shadow: 0 0 10px rgba(1, 69, 255, 0.5);
+}
+
+button {
+    width: 120px;
+    padding: 0.8rem;
+    background: var(--color-secundario);
+    color: #fcda00;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 #000,
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000;
+    box-shadow: var(--shadow-base);
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+
+button:hover {
+    transform: translateY(-2px);
+    background: var(--ssj);
+    color:#0145ff;
+    text-shadow: 3px 3px 0 #000000,
+                -1px -1px 0 #000000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                2px 1px 0 #000000;
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#message {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #8b0000, #ff0000);
+    color: #fcda00;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-shadow: 2px 2px 0 #000,
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    transform: translateX(-150%);
+    animation: slideIn 0.5s ease-out 0.3s forwards;
+}
+
+.back-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(255, 0, 0, 0.4);
+    background: linear-gradient(45deg, #ff0000, #3c8b00);
+}
+
+.back-button:active {
+    transform: translateY(0) scale(0.95);
+}
+
+.back-button span {
+    margin-left: 5px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-150%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Animación al hacer clic */
+@keyframes clickEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+
+/* Efecto de hover para el contenedor */
+.login-container {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+}
